@@ -4,22 +4,20 @@ export const Weather = (props) => {
 
   return (
     <>
-      <div className="container mx-auto bg-white/40 items flex flex-col justify-center items-center rounded-md">
+      <div className=" cursor-default container mx-auto bg-white/20 items flex flex-col justify-center items-center rounded-md">
         <div className="flex flex-col gap-1 items-center">
-          <img
-            src={props.icon}
-            alt="Weather Icon"
-            className="m-0 p-0"
-            width="220px"
-          />{" "}
-          <stronp className="font-regular p-1 text-[48px] m-0">
+          <img src={props.icon} alt="Weather Icon" className="mt-5 p-0.5" />{" "}
+          <p className="font-regular p-1 text-[48px] m-0">
             {props.data.main.temp}
-            <sup>°</sup> <span className="font-regular  text-2xl">C</span>
-          </stronp>
-          <h1 id="description" className=" uppercase font-medium text-xl px-2">
+            <sup>°</sup>C <span className="font-regular  text-2xl"></span>
+          </p>
+          <h1
+            id="description"
+            className=" normal-case font-medium text-xl px-2"
+          >
             {props.data.name}
           </h1>{" "}
-          <h1 className="uppercase font-medium text-xl px-2">
+          <h1 className=" font-medium text-xl px-2">
             {props.data.weather[0].main}
           </h1>
         </div>

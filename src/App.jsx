@@ -4,6 +4,12 @@ import clear_sky_day from "./assets/day.svg";
 import clear_sky_night from "./assets/night.svg";
 import few_clouds_day from "./assets/cloudy-day-1.svg";
 import few_clouds_night from "./assets/cloudy-night-1.svg";
+import cloudy from "./assets/cloudy.svg";
+import shower_rain_night from "./assets/rainy-7.svg";
+import shower_rain_day from "./assets/rainy-2.svg";
+import rain_day from "./assets/rainy-3.svg";
+import rain_night from "./assets/rainy-6.svg";
+import thunder from "./assets/thunder.svg";
 
 function App() {
   const [lat, setLat] = useState("");
@@ -46,7 +52,7 @@ function App() {
   if (!weatherData) {
     return <div>Loading...</div>;
   }
-  
+
   if (!weatherData.weather || weatherData.weather.length === 0) {
     return <div>Error: Weather data is incomplete</div>;
   }
@@ -62,8 +68,19 @@ function App() {
     case "few clouds":
       WeatherIcon = isDayTime ? few_clouds_day : few_clouds_night;
       break;
+    case "scattered clouds" || "broken clouds":
+      WeatherIcon = cloudy;
+      break;
+    case "shower rain":
+      WeatherIcon = isDayTime ? shower_rain_day : shower_rain_night;
+      break;
+    case "rain":
+      WeatherIcon = isDayTime ? rain_day : rain_night;
+      break;
+    case "thunderstorm":
+      WeatherIcon = thunder;
+      break;
   }
- 
 
   return (
     <div>
