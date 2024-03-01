@@ -13,11 +13,15 @@ import thunder from "./assets/thunder.svg";
 import search_icon from "./assets/search-icon.svg";
 import gps from "./assets/gps-navigator.png";
 import { Skeleton } from "./skeleton";
+import windflow from "./assets/windflow.png";
+import humidity from "./assets/humidity.png";
+import pressure from "./assets/pressure.png";
 
 function App() {
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
   const [weatherData, setWeatherData] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = () => {
@@ -53,7 +57,23 @@ function App() {
     fetchWeatherData();
   }, [lat, long]);
 
-  if (!weatherData) {
+  const Handleclick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      fetchData();
+      // Refetch weather data after 2 seconds
+    }, 1000);
+  };
+
+  const fetchData = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLat(position.coords.latitude);
+      setLong(position.coords.longitude);
+    });
+  };
+
+  if (loading || !weatherData) {
     return (
       <div>
         <Skeleton />
@@ -69,26 +89,26 @@ function App() {
   const currentTime = new Date().getHours(); // Get current hour
   const isDayTime = currentTime >= 6 && currentTime < 18; // Assuming day time is between 6 AM and 6 PM
 
-  switch (weatherData.weather[0].description || []) {
-    case "clear sky":
+  switch (true) {
+    case weatherData.weather[0].id === 800:
       WeatherIcon = isDayTime ? clear_sky_day : clear_sky_night;
       break;
-    case "few clouds":
+    case weatherData.weather[0].id === 801:
       WeatherIcon = isDayTime ? few_clouds_day : few_clouds_night;
       break;
-    case "scattered clouds":
+    case weatherData.weather[0].id > 801:
       WeatherIcon = cloudy;
       break;
-    case "broken clouds":
-      WeatherIcon = cloudy;
-      break;
-    case "shower rain":
+    case weatherData.weather[0].id > 511:
       WeatherIcon = isDayTime ? shower_rain_day : shower_rain_night;
       break;
-    case "rain":
+    case weatherData.weather[0].id >= 300 && weatherData.weather[0].id <= 321:
+      WeatherIcon = isDayTime ? shower_rain_day : shower_rain_night;
+      break;
+    case weatherData.weather[0].id >= 500 && weatherData.weather[0].id < 520:
       WeatherIcon = isDayTime ? rain_day : rain_night;
       break;
-    case "thunderstorm":
+    case weatherData.weather[0].id < 233:
       WeatherIcon = thunder;
       break;
   }
@@ -96,6 +116,10 @@ function App() {
   return (
     <div>
       <Weather
+        click={Handleclick}
+        pressure={pressure}
+        humidity={humidity}
+        windflow={windflow}
         gps={gps}
         search={search_icon}
         icon={WeatherIcon}

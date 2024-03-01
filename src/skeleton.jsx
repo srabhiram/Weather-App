@@ -23,17 +23,17 @@ export const Skeleton = () => {
               width={120}
               className="fill-black/20"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               version="1.1"
               x="0px"
               y="0px"
               viewBox="0 0 30 30"
-              xml:space="preserve"
+              xmlSpace="preserve"
             >
               <g transform="translate(-570 -80)">
                 <g
                   xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
                 >
                   <circle cx="579" cy="92" r="2" />
                   <polygon points="590.908,86 590.315,88 595,88 595,103 585.871,103 585.278,105 597,105 597,86   " />
