@@ -2,8 +2,8 @@
 export const Weather = (props) => {
   return (
     <>
-      <div className="shadow-2xl border-black cursor-default container mx-auto bg-white/40 items flex flex-col justify-center items-center rounded-xl">
-        <div className="flex p-2 relative items-center justify-center mx-3">
+      <div className="shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl">
+        <div className="flex p-2 relative items-center justify- gap-2 mx-3">
           <div id="search-box">
             <input
               type="text"
@@ -11,23 +11,21 @@ export const Weather = (props) => {
               placeholder="Enter City name"
               className="w-full h-full bg-white/80 p-3 text-lg rounded-lg mt-3 outline-none border-none focus:outline-2 focus:outline-black/20 focus:ring-2 focus:ring-gray-outline-black/20 focus:border-2 focus:border-gray-outline-black/20 "
             />
-          </div>{" "}
-          <div className="p-2" id="search-icon">
-            <button>
+            <div className="p-2" id="search-icon">
               <img
                 className="absolute right-[72px]   top-8   opacity-40  text-center"
                 src={props.search}
                 width={24}
               />
-            </button>
+            </div>{" "}
           </div>{" "}
           <div id="gps">
             <button
               id="current_location"
-              className="p-2 mt-3 static rounded-lg bg-white/80 hover:bg-blue-200 focus:bg-blue-400"
+              className="p-2  static rounded-lg bg-white/80 hover:bg-blue-200 focus:bg-blue-400"
               onClick={props.click}
             >
-              <img src={props.gps} alt="gps" className="w-6 p-0.5 m-0" />
+              <img src={props.gps} alt="gps" width={22} />
             </button>
           </div>
         </div>
@@ -54,7 +52,9 @@ export const Weather = (props) => {
             id="wind"
             className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm "
           >
-            <span>{props.data.wind.speed}</span>
+            <span>
+              {props.data.wind.speed} <span className="text-[9px]"> m/sec</span>
+            </span>
             <img
               src={props.windflow}
               width={22}
