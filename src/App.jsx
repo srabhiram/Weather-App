@@ -10,6 +10,9 @@ import shower_rain_day from "./assets/rainy-2.svg";
 import rain_day from "./assets/rainy-3.svg";
 import rain_night from "./assets/rainy-6.svg";
 import thunder from "./assets/thunder.svg";
+import search_icon from "./assets/search-icon.svg";
+import gps from "./assets/gps-navigator.png";
+import { Skeleton } from "./skeleton";
 
 function App() {
   const [lat, setLat] = useState("");
@@ -50,7 +53,7 @@ function App() {
     fetchWeatherData();
   }, [lat, long]);
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return <div className="animate-pulse"><Skeleton/></div>;
   }
 
   if (!weatherData.weather || weatherData.weather.length === 0) {
@@ -68,7 +71,10 @@ function App() {
     case "few clouds":
       WeatherIcon = isDayTime ? few_clouds_day : few_clouds_night;
       break;
-    case "scattered clouds" || "broken clouds":
+    case "scattered clouds":
+      WeatherIcon = cloudy;
+      break;
+    case "broken clouds":
       WeatherIcon = cloudy;
       break;
     case "shower rain":
@@ -84,7 +90,12 @@ function App() {
 
   return (
     <div>
-      <Weather icon={WeatherIcon} data={weatherData} />
+      <Weather
+        gps={gps}
+        search={search_icon}
+        icon={WeatherIcon}
+        data={weatherData}
+      />
     </div>
   );
 }
