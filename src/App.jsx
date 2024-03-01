@@ -52,8 +52,13 @@ function App() {
 
     fetchWeatherData();
   }, [lat, long]);
+
   if (!weatherData) {
-    return <div className="animate-pulse"><Skeleton/></div>;
+    return (
+      <div>
+        <Skeleton />
+      </div>
+    );
   }
 
   if (!weatherData.weather || weatherData.weather.length === 0) {
