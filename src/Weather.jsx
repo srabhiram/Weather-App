@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 export const Weather = (props) => {
- 
-
   return (
     <>
-      <div className=" cursor-default container mx-auto bg-white/20 items flex flex-col justify-center items-center rounded-md">
+      <div className="shadow-2xl border-black cursor-default container mx-auto bg-white/30 items flex flex-col justify-center items-center rounded-md">
         <div className="flex p-2 relative items-center justify-center mx-3">
           <div id="search-box">
             <input
@@ -26,7 +24,7 @@ export const Weather = (props) => {
           <div id="gps">
             <button
               id="current_location"
-              className="p-2  mt-3 static rounded-lg bg-white/80 hover:bg-white focus:transition-colors colors"
+              className="p-2 mt-3 static rounded-lg bg-white/80 hover:bg-indigo-300 focus:bg-indigo-400"
               onClick={props.click}
             >
               <img src={props.gps} alt="gps" className="w-6 p-0.5 m-0" />
@@ -54,7 +52,7 @@ export const Weather = (props) => {
         <div className="bg-white/55 mx-2 my-4 rounded-md  grid grid-cols-3 gap-4 p-1.5 text-center">
           <div
             id="wind"
-            className="flex flex-col items-center hover:bg-white/35 rounded-sm "
+            className="flex flex-col items-center hover:bg-indigo-300 focus:bg-indigo-400 rounded-sm "
           >
             <span>{props.data.wind.speed}</span>
             <img
@@ -68,7 +66,7 @@ export const Weather = (props) => {
 
           <div
             id="pressure"
-            className="flex flex-col items-center hover:bg-white/35 rounded-sm"
+            className="flex flex-col items-center hover:bg-indigo-300 focus:bg-indigo-400 rounded-sm"
           >
             <span>
               {props.data.main.pressure}
@@ -84,7 +82,7 @@ export const Weather = (props) => {
           </div>
 
           <div
-            className="flex flex-col items-center hover:bg-white/35 rounded-sm"
+            className="flex flex-col items-center hover:bg-indigo-300 focus:bg-indigo-400 rounded-sm"
             id="humidity"
           >
             <span>{props.data.main.humidity}%</span>
