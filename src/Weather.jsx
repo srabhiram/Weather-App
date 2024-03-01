@@ -2,7 +2,7 @@
 export const Weather = (props) => {
   return (
     <>
-      <div className="shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl">
+      <div className="drop-shadow-lg  shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl">
         <div className="flex p-2 relative items-center justify- gap-2 mx-3">
           <div id="search-box">
             <input
@@ -31,7 +31,11 @@ export const Weather = (props) => {
         </div>
 
         <div id="info" className="flex flex-col gap-1 items-center">
-          <img src={props.icon} alt="Weather Icon" className="mt-6 p-0.5" />{" "}
+          <img
+            src={props.icon}
+            alt="Weather Icon"
+            className="drop-shadow-md mt-6 p-0.5"
+          />{" "}
           <h1
             id="Location-name"
             className=" normal-case font-thin text-[27px] px-2"
