@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 export const Weather = (props) => {
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    typeof props?.data.main.temp === "number" ? 
+    setImageError(false) : setImageError(true)
+  };
   return (
     <>
       <div className="drop-shadow-lg  shadow-2xl border-black cursor-default container mx-auto bg-white/40  flex flex-col justify-center items-center rounded-xl">
@@ -10,6 +17,12 @@ export const Weather = (props) => {
               name="city"
               placeholder="Enter City name"
               className="w-full h-full bg-white/80 p-3 text-lg rounded-lg mt-3 outline-none border-none focus:outline-2 focus:outline-black/20 focus:ring-2 focus:ring-gray-outline-black/20 focus:border-2 focus:border-gray-outline-black/20 "
+              onChange={(event) => props.setCity(event.target.value)}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  props.handlesearch(event.target.value);
+                }
+              }}
             />
             <div className="p-2" id="search-icon">
               <img
@@ -31,23 +44,27 @@ export const Weather = (props) => {
         </div>
 
         <div id="info" className="flex flex-col gap-1 items-center">
-          <img
-            src={props.icon}
+          {imageError ? (
+            <span>Allow access to loation</span>
+          ):( <img
+            src={props?.icon}
+            onError={handleImageError}
             alt="Weather Icon"
             className="drop-shadow-md mt-6 p-0.5"
-          />{" "}
+          />)}
+         
           <h1
             id="Location-name"
             className=" normal-case font-thin text-[27px] px-2"
           >
-            {props.data.name}
+            {props?.data.name}
           </h1>
           <p className="font-thin p-1 text-5xl m-0">
-            {props.data.main.temp}
-            <sup>°</sup>
+            {props?.data.main.temp}{typeof props?.data.main.temp === "number" ? (<sup>°</sup>):(<span> </span>)}
+            
           </p>
           <h1 className="capitalize mb-4 font-regular text-xl px-2">
-            {props.data.weather[0].description}
+            {props?.data.weather[0].description}
           </h1>
         </div>
 
@@ -57,10 +74,11 @@ export const Weather = (props) => {
             className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm "
           >
             <span>
-              {props.data.wind.speed} <span className="text-[9px]"> m/sec</span>
+              {props?.data.wind.speed}{" "}
+              <span className="text-[9px]"> m/sec</span>
             </span>
             <img
-              src={props.windflow}
+              src={props?.windflow}
               width={22}
               alt="weather"
               className="py-1"
@@ -73,11 +91,11 @@ export const Weather = (props) => {
             className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm"
           >
             <span>
-              {props.data.main.pressure}
+              {props?.data.main.pressure}
               <span className="text-[9px]"> hPa</span>
             </span>
             <img
-              src={props.pressure}
+              src={props?.pressure}
               width={21}
               alt="weather"
               className="py-1"
@@ -89,9 +107,9 @@ export const Weather = (props) => {
             className="flex flex-col items-center hover:bg-blue-200/50 focus:bg-blue-400 rounded-sm"
             id="humidity"
           >
-            <span>{props.data.main.humidity}%</span>
+            <span>{props?.data.main.humidity}%</span>
             <img
-              src={props.humidity}
+              src={props?.humidity}
               width={22}
               alt="weather"
               className="py-1"
