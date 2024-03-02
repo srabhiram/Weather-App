@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 export const Weather = (props) => {
-  const [imageError, setImageError] = useState(false);
+  const [imageError, setImageError] = useState(true);
 
   const handleImageError = () => {
     typeof props?.data.main.temp === "number"
@@ -46,14 +46,14 @@ export const Weather = (props) => {
 
         <div id="info" className="flex flex-col gap-1 items-center">
           {imageError ? (
-            <span></span>
-          ) : (
             <img
               src={props?.icon}
               onError={handleImageError}
               alt="Weather Icon"
               className="drop-shadow-md mt-6 p-0.5"
             />
+          ) : (
+            <span> </span>
           )}
 
           <h1
