@@ -24,10 +24,18 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [city, setCity] = useState("abhi");
 
+  console.log(lat);
+  
   useEffect(() => {
+    const fetchData = () => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
+      });
+    };
     fetchData();
 
-    if (!lat) {
+    if (lat === "" && long === "") {
       const initial = {
         weather: [{ id: 1, description: " " }],
         main: {
@@ -59,7 +67,15 @@ function App() {
     };
     fetchWeatherData();
   }, [lat, long]);
+
   console.log(weatherData);
+  
+  const fetchData = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLat(position.coords.latitude);
+      setLong(position.coords.longitude);
+    });
+  };
 
   const fetchWeatherData = async () => {
     if (lat !== "" && long !== "") {
@@ -93,38 +109,32 @@ function App() {
   };
 
   const handleSearch = () => {
+    weatherBycity();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-       // Refetch weather data after 2 seconds
+      // Refetch weather data after 2 seconds
       weatherBycity();
     }, 2000);
   };
   const Handleclick = (event) => {
-    event.preventDefault()
-    fetchData()
+    event.preventDefault();
+    fetchData();
     setLoading(true);
-    
+
     // Refetch weather data after 2 seconds
     fetchWeatherData();
     setTimeout(() => {
-      fetchData()
-      fetchWeatherData()
+      fetchData();
+      fetchWeatherData();
       setLoading(false);
     }, 2000);
-  };
-
-  const fetchData = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLat(position.coords.latitude);
-      setLong(position.coords.longitude);
-    });
   };
 
   if (loading || !weatherData) {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
     return (
       <div>
         <Skeleton />
@@ -162,7 +172,6 @@ function App() {
     case weatherData?.weather[0].id < 233 && weatherData?.weather[0].id >= 200:
       WeatherIcon = thunder;
       break;
-   
   }
 
   return (
