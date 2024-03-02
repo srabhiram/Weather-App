@@ -57,10 +57,28 @@ function App() {
         }
       }
     };
-
     fetchWeatherData();
   }, [lat, long]);
   console.log(weatherData);
+
+  const fetchWeatherData = async () => {
+    if (lat !== "" && long !== "") {
+      try {
+        const response = await fetch(
+          `${
+            import.meta.env.VITE_URL
+          }lat=${lat}&lon=${long}&units=metric&appid=${
+            import.meta.env.VITE_API_KEY
+          }`
+        );
+        const data = await response.json();
+        setWeatherData(data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const weatherBycity = async () => {
     const response = await fetch(
@@ -78,17 +96,18 @@ function App() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      fetchData(); // Refetch weather data after 2 seconds
+       // Refetch weather data after 2 seconds
       weatherBycity();
-    }, 1000);
+    }, 2000);
   };
   const Handleclick = () => {
     setLoading(true);
+    fetchData()
     // Refetch weather data after 2 seconds
     fetchWeatherData();
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
   };
 
   const fetchData = () => {
@@ -101,7 +120,7 @@ function App() {
   if (loading || !weatherData) {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 3000);
     return (
       <div>
         <Skeleton />
@@ -139,6 +158,8 @@ function App() {
     case weatherData?.weather[0].id < 233 && weatherData?.weather[0].id >= 200:
       WeatherIcon = thunder;
       break;
+    case weatherData?.weather[0].id === 1:
+      WeatherIcon = "nodata";
   }
 
   return (

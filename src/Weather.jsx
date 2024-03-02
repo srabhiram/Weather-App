@@ -4,8 +4,9 @@ export const Weather = (props) => {
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
-    typeof props?.data.main.temp === "number" ? 
-    setImageError(false) : setImageError(true)
+    typeof props?.data.main.temp === "number"
+      ? setImageError(false)
+      : setImageError(true);
   };
   return (
     <>
@@ -45,14 +46,16 @@ export const Weather = (props) => {
 
         <div id="info" className="flex flex-col gap-1 items-center">
           {imageError ? (
-            <span>Allow access to loation</span>
-          ):( <img
-            src={props?.icon}
-            onError={handleImageError}
-            alt="Weather Icon"
-            className="drop-shadow-md mt-6 p-0.5"
-          />)}
-         
+            <span></span>
+          ) : (
+            <img
+              src={props?.icon}
+              onError={handleImageError}
+              alt="Weather Icon"
+              className="drop-shadow-md mt-6 p-0.5"
+            />
+          )}
+
           <h1
             id="Location-name"
             className=" normal-case font-thin text-[27px] px-2"
@@ -60,8 +63,12 @@ export const Weather = (props) => {
             {props?.data.name}
           </h1>
           <p className="font-thin p-1 text-5xl m-0">
-            {props?.data.main.temp}{typeof props?.data.main.temp === "number" ? (<sup>°</sup>):(<span> </span>)}
-            
+            {props?.data.main.temp}
+            {typeof props?.data.main.temp === "number" ? (
+              <sup>°</sup>
+            ) : (
+              <span> </span>
+            )}
           </p>
           <h1 className="capitalize mb-4 font-regular text-xl px-2">
             {props?.data.weather[0].description}
