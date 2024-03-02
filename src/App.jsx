@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     fetchData();
 
-    if (!lat & !long) {
+    if (!lat) {
       const initial = {
         weather: [{ id: 1, description: " " }],
         main: {
@@ -100,12 +100,16 @@ function App() {
       weatherBycity();
     }, 2000);
   };
-  const Handleclick = () => {
-    setLoading(true);
+  const Handleclick = (event) => {
+    event.preventDefault()
     fetchData()
+    setLoading(true);
+    
     // Refetch weather data after 2 seconds
     fetchWeatherData();
     setTimeout(() => {
+      fetchData()
+      fetchWeatherData()
       setLoading(false);
     }, 2000);
   };
@@ -158,8 +162,7 @@ function App() {
     case weatherData?.weather[0].id < 233 && weatherData?.weather[0].id >= 200:
       WeatherIcon = thunder;
       break;
-    case weatherData?.weather[0].id === 1:
-      WeatherIcon = "nodata";
+   
   }
 
   return (
